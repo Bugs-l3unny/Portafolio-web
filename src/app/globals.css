@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+
+@theme {
+  --color-graphite: #2a2927;
+  --color-graphite-deep: #232220;
+  --color-gold: #c9a46a;
+  --color-bone: #ece5d8;
+  --color-stone: #8c877e;
+  --color-sillar: #f3efe7;
+  --color-ink: #2a2927;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background: var(--color-graphite);
+  color: var(--color-bone);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01";
+}
+
+.font-condensed {
+  font-variation-settings: "wdth" 75, "opsz" 96;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-graphite);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
