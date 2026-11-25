@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Fully static site: `next build` writes plain HTML/CSS/JS to `out/` for Cloudflare Pages.
   output: "export",
+  // Emit `en/index.html` rather than `en.html`, which every static host serves at /en/.
+  trailingSlash: true,
   // The default image loader needs a server; screenshots are already pre-sized WebP files.
   images: { unoptimized: true },
   turbopack: {

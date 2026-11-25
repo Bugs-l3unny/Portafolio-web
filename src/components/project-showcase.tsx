@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { ProjectGallery } from "@/components/project-gallery";
 import { scrollToY } from "@/components/smooth-scroll";
-import type { Project } from "@/content/profile";
+import type { Project } from "@/content/types";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -17,7 +17,7 @@ const SCROLL_PER_IMAGE = 0.2;
 const PIN_QUERY = "(min-width: 768px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)";
 
 /** One project: giant gold name that slides in, details, and a gallery that steps through screenshots while pinned. */
-export function ProjectShowcase({ project }: { project: Project }) {
+export function ProjectShowcase({ project, galleryLabel }: { project: Project; galleryLabel: string }) {
   const row = useRef<HTMLLIElement>(null);
   const name = useRef<HTMLHeadingElement>(null);
   const stepper = useRef<ScrollTrigger | null>(null);
@@ -145,7 +145,7 @@ export function ProjectShowcase({ project }: { project: Project }) {
           </div>
           <div className="md:col-span-7">
             <ProjectGallery
-              projectName={project.name}
+              label={galleryLabel}
               images={images}
               active={active}
               onSelect={show}

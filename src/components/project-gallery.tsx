@@ -5,12 +5,13 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import type { ProjectImage } from "@/content/profile";
+import type { ProjectImage } from "@/content/types";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 type Props = {
-  projectName: string;
+  /** Accessible name for the screenshot buttons, e.g. "Screenshots of FitFlex". */
+  label: string;
   images: ProjectImage[];
   active: number;
   onSelect: (index: number) => void;
@@ -20,7 +21,7 @@ type Props = {
 
 /** Screenshot viewer: crossfades to the active image and opens like a window on scroll. */
 export function ProjectGallery({
-  projectName,
+  label,
   images,
   active,
   onSelect,
@@ -83,7 +84,7 @@ export function ProjectGallery({
       </div>
 
       {images.length > 1 && (
-        <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={`Capturas de ${projectName}`}>
+        <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label={label}>
           {images.map((image, index) => (
             <button
               key={image.src}

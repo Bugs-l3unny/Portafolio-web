@@ -1,18 +1,22 @@
-import { projects } from "@/content/profile";
 import { ProjectShowcase } from "@/components/project-showcase";
 import { ScrollTitle } from "@/components/scroll-title";
+import type { Dictionary } from "@/content/types";
 
-export function Projects() {
+export function Projects({ copy }: { copy: Dictionary["projects"] }) {
   return (
-    <section id="proyectos" aria-labelledby="proyectos-title" className="bg-graphite-deep pt-24 md:pt-32">
-      <ScrollTitle id="proyectos-title">Proyectos</ScrollTitle>
+    <section id={copy.id} aria-labelledby={`${copy.id}-title`} className="bg-graphite-deep pt-24 md:pt-32">
+      <ScrollTitle id={`${copy.id}-title`}>{copy.title}</ScrollTitle>
       <p className="mt-8 max-w-2xl px-[4vw] font-display text-2xl leading-snug text-bone/80 md:text-3xl">
-        Sistemas en uso o que resolvieron un problema concreto, de la base de datos a la pantalla.
+        {copy.intro}
       </p>
 
       <ol className="mt-16 px-[4vw] md:mt-24">
-        {projects.map((project) => (
-          <ProjectShowcase key={project.name} project={project} />
+        {copy.items.map((project) => (
+          <ProjectShowcase
+            key={project.name}
+            project={project}
+            galleryLabel={`${copy.screenshotsOf} ${project.name}`}
+          />
         ))}
       </ol>
     </section>

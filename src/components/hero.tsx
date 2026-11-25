@@ -5,17 +5,18 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { profile } from "@/content/profile";
+import { person } from "@/content/shared";
+import type { Dictionary } from "@/content/types";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-const nav = [
-  { label: "Proyectos", href: "#proyectos" },
-  { label: "Trayectoria", href: "#trayectoria" },
-  { label: "Contacto", href: "#contacto" },
-];
+type Props = {
+  copy: Dictionary["hero"];
+  nav: { label: string; href: string }[];
+  whatsappHref: string;
+};
 
-export function Hero() {
+export function Hero({ copy, nav, whatsappHref }: Props) {
   const section = useRef<HTMLElement>(null);
   const name = useRef<HTMLHeadingElement>(null);
   const photo = useRef<HTMLDivElement>(null);
@@ -62,9 +63,9 @@ export function Hero() {
 
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-[4vw] py-6 text-sm">
         <a href="#" className="font-display font-semibold text-bone">
-          Alexander Iquise
+        
         </a>
-        <nav aria-label="Secciones">
+        <nav aria-label={copy.navLabel}>
           <ul className="flex gap-5 text-bone/80 sm:gap-8">
             {nav.map((item) => (
               <li key={item.href}>
@@ -73,6 +74,17 @@ export function Hero() {
                 </a>
               </li>
             ))}
+            <li className="border-l border-bone/20 pl-5 sm:pl-8">
+              <a
+                className="font-semibold text-bone transition-colors hover:text-gold"
+                href={copy.languageSwitch.href}
+                hrefLang={copy.languageSwitch.locale}
+                lang={copy.languageSwitch.locale}
+                aria-label={copy.languageSwitch.ariaLabel}
+              >
+                {copy.languageSwitch.label}
+              </a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -81,7 +93,7 @@ export function Hero() {
         ref={name}
         className="font-display font-condensed absolute top-[22%] left-0 z-10 whitespace-nowrap pl-[4vw] text-[38vw] leading-[0.8] font-extrabold tracking-[-0.02em] text-gold sm:top-[16%] md:text-[25vw]"
       >
-        {profile.firstName} {profile.lastName}
+        {person.firstName} {person.lastName}
       </h1>
 
       <div
@@ -90,7 +102,7 @@ export function Hero() {
       >
         <Image
           src="/images/alexander-cutout.webp"
-          alt="Alexander Iquise con el dedo índice sobre los labios"
+          alt={copy.photoAlt}
           width={1208}
           height={1813}
           priority
@@ -109,27 +121,27 @@ export function Hero() {
           data-reveal
           className="font-display font-condensed text-[10.5vw] leading-[0.88] font-extrabold tracking-[-0.01em] text-bone md:text-[max(5.2vw,3.5rem)]"
         >
-          {profile.role.title}
+          {copy.roleLines[0]}
           <br />
-          {profile.role.focus}
+          {copy.roleLines[1]}
         </p>
         <div data-reveal className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-4 md:mt-8">
           <a
             className="rounded-full bg-gold px-6 py-3 text-base font-semibold text-graphite transition-colors hover:bg-bone md:text-lg"
-            href={`mailto:${profile.email}`}
+            href={`mailto:${person.email}`}
           >
-            Escríbeme
+            {copy.emailCta}
           </a>
           <a
             className="rounded-full border border-bone/30 px-6 py-3 text-base font-semibold text-bone transition-colors hover:border-gold hover:text-gold md:text-lg"
-            href={profile.whatsapp.href}
+            href={whatsappHref}
             target="_blank"
             rel="noreferrer"
           >
-            WhatsApp
+            {copy.whatsappCta}
           </a>
           <span className="flex gap-x-5 sm:ml-3">
-            {profile.links.map((link) => (
+            {person.links.map((link) => (
               <a
                 key={link.href}
                 className="text-base text-bone/70 underline-offset-4 transition-colors hover:text-bone hover:underline"

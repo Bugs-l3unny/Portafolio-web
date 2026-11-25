@@ -4,13 +4,13 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { timeline } from "@/content/profile";
+import type { Dictionary } from "@/content/types";
 import { ScrollTitle } from "@/components/scroll-title";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /** Timeline whose line draws with scroll; each milestone lights up once it reaches the reading line. */
-export function Journey() {
+export function Journey({ copy }: { copy: Dictionary["journey"] }) {
   const list = useRef<HTMLOListElement>(null);
 
   useGSAP(
@@ -46,15 +46,15 @@ export function Journey() {
   );
 
   return (
-    <section id="trayectoria" aria-labelledby="trayectoria-title" className="bg-graphite py-24 md:py-32">
-      <ScrollTitle id="trayectoria-title">Trayectoria</ScrollTitle>
+    <section id={copy.id} aria-labelledby={`${copy.id}-title`} className="bg-graphite py-24 md:py-32">
+      <ScrollTitle id={`${copy.id}-title`}>{copy.title}</ScrollTitle>
 
       <ol ref={list} className="relative mt-16 px-[4vw] md:mt-24">
         <div aria-hidden className="absolute top-0 bottom-0 left-[4vw] w-px bg-bone/10">
           <div data-progress className="h-full w-px origin-top bg-gold" />
         </div>
 
-        {timeline.map((step) => (
+        {copy.entries.map((step) => (
           <li
             key={step.date + step.title}
             data-step

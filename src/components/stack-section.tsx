@@ -4,13 +4,13 @@ import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { stack } from "@/content/profile";
+import type { Dictionary } from "@/content/types";
 import { ScrollTitle } from "@/components/scroll-title";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 /** Technologies set large; each group brightens as it scrolls up to the reading line. */
-export function StackSection() {
+export function StackSection({ copy }: { copy: Dictionary["stack"] }) {
   const list = useRef<HTMLDListElement>(null);
 
   useGSAP(
@@ -34,11 +34,11 @@ export function StackSection() {
   );
 
   return (
-    <section id="stack" aria-labelledby="stack-title" className="bg-graphite-deep py-24 md:py-32">
-      <ScrollTitle id="stack-title">Stack</ScrollTitle>
+    <section id={copy.id} aria-labelledby={`${copy.id}-title`} className="bg-graphite-deep py-24 md:py-32">
+      <ScrollTitle id={`${copy.id}-title`}>{copy.title}</ScrollTitle>
 
       <dl ref={list} className="mt-16 px-[4vw] md:mt-24">
-        {stack.map((row) => (
+        {copy.groups.map((row) => (
           <div
             key={row.group}
             data-group
