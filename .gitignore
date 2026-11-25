@@ -43,3 +43,6 @@ next-env.d.ts
 # local agent tooling
 .claude/settings.local.json
 .atl/
+
+# wrangler local state
+.wrangler/

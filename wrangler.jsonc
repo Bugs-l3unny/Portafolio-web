@@ -1,0 +1,11 @@
+// Cloudflare Worker that only serves the static export in out/ (no server code).
+// Having this file stops `wrangler deploy` from auto-configuring a server build.
+{
+  "name": "portafolio-web",
+  "compatibility_date": "2026-11-23",
+  "assets": {
+    "directory": "./out",
+    // Unknown URLs get out/404.html with a 404 status.
+    "not_found_handling": "404-page"
+  }
+}
